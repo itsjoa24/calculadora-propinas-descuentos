@@ -1,4 +1,4 @@
-from calculadora import calcular_propina
+from calculadora import pedir_propina
 from descuentos import calcular_descuentos
 
 
@@ -10,7 +10,7 @@ while True:
     try:
         opciones = int(input("Elige una opcion: "))
         if opciones == 1:
-            calcular_propina()
+            pedir_propina()
 
         elif opciones == 2:
             calcular_descuentos()
