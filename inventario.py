@@ -23,6 +23,9 @@ while True:
             nombre = input("Nombre del producto: ").strip().lower()
             productos.append(nombre)
             print(f"{nombre} Agregado exitosamente")
+        elif nombre == "":
+            print("No se puede agregar un producto vacio")
+            
 
         elif opcion == 2:
             if len(productos) == 0:
@@ -31,12 +34,12 @@ while True:
                 for producto in productos:
                     print(producto)
         elif opcion == 3:
-            nombre = input("Producto a eliminar : ") .strip() .lower()
+            nombre = input("Producto a eliminar : ").strip().lower()
             if nombre in productos:
                 productos.remove(nombre)
-                print(f"Se ah eliminado exitosamente {nombre} de la lista")
+                print(f"Se ha eliminado exitosamente {nombre} de la lista")
             else:
-                print(f"No se encontro {nombre} En la lista")
+                print(f"No se encontro {nombre} en la lista")
         elif opcion == 4:
             with open("inventario.txt", "w") as archivo:
                 for producto in productos:
