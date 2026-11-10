@@ -8,7 +8,10 @@ productos = []
 try:
     with open("inventario.txt", "r") as archivo:
         for linea in archivo:
-            productos.append(linea.strip())
+            nombre, cantidad, precio = linea.strip().split(",")
+            productos.append(
+                {"nombre": nombre, "cantidad": int(cantidad), "precio": float(precio)}
+            )
 except FileNotFoundError:
     print(
         "No se encontro el archivo inventario.txt, se creara uno nuevo al salir del programa"
@@ -61,9 +64,11 @@ while True:
                 else:
                     print(f"No se encontro {nombre} en la lista")
         elif opcion == 4:
-            # with open("inventario.txt", "w") as archivo:
-            # for producto in productos:
-            # archivo.write(producto + "\n")
+            with open("inventario.txt", "w") as archivo:
+                for producto in productos:
+                    archivo.write(
+                        f"{producto['nombre']},{producto['cantidad']},{producto['precio']}\n"
+                    )
             print("Que tenga un lindo dia")
             break
         else:
