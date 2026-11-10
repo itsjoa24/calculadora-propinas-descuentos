@@ -10,53 +10,58 @@ try:
         for linea in archivo:
             productos.append(linea.strip())
 except FileNotFoundError:
-    print("No se encontro el archivo inventario.txt, se creara uno nuevo al salir del programa")
-
+    print(
+        "No se encontro el archivo inventario.txt, se creara uno nuevo al salir del programa"
+    )
 
 
 while True:
     try:
         for lista in listas:
             print(lista)
+    except:
+        print("Error al mostrar el menu")
+    try:
         opcion = int(input("Eliga la opcion que quiera realizar: "))
         if opcion == 1:
             nombre = input("Nombre del producto: ").strip().lower()
-            productos.append(nombre)
-            print(f"{nombre} Agregado exitosamente")
-        elif nombre == "":
-            print("No se puede agregar un producto vacio")
-            
+            if nombre == "":
+                print("No se puede agregar un producto vacio")
+            else:
+                cantidad = int(input("Cantidad del producto: "))
+                precio = float(input("Precio del producto: "))
+                producto = {"nombre": nombre, "cantidad": cantidad, "precio": precio}
+                productos.append(producto)
+                print(f"{nombre} Agregado exitosamente")
 
         elif opcion == 2:
             if len(productos) == 0:
                 print("No hay productos añadidos")
             else:
+                total = 0.0
                 for producto in productos:
-                    print(producto)
+                    print(
+                        f"{producto['nombre']} : unidades : {producto['cantidad']} a un precio de ${producto['precio']:.2f}"
+                    )
+                    total += producto["precio"] * producto["cantidad"]
+                print(f"El total de la compra es de ${total:.2f}")
         elif opcion == 3:
             nombre = input("Producto a eliminar : ").strip().lower()
-            if nombre in productos:
-                productos.remove(nombre)
+            encontrado = False
+            for producto in productos:
+                if nombre == producto["nombre"]:
+                    productos.remove(producto)
+                    encontrado = True
                 print(f"Se ha eliminado exitosamente {nombre} de la lista")
-            else:
-                print(f"No se encontro {nombre} en la lista")
+        if not encontrado:
+            print(f"No se encontro {nombre} en la lista")
         elif opcion == 4:
-            with open("inventario.txt", "w") as archivo:
-                for producto in productos:
-                    archivo.write(producto + "\n")
+            # with open("inventario.txt", "w") as archivo:
+            # for producto in productos:
+            # archivo.write(producto + "\n")
             print("Que tenga un lindo dia")
             break
         else:
             print("Opcion no valida")
     except ValueError:
-        print("ERROR : Solo se permite numero entero de las opciones 1 - 4 ")
-
-
-# Guardar: cada nombre en una línea
-with open("datos.txt", "w") as archivo:
-    for nombre in productos:
-        archivo.write(nombre + "\n")
-
-# Leer
-with open("datos.txt", "r") as archivo:
-    nombres = [linea.strip() for linea in archivo]
+        print("ERROR : Solo se permite numero entero de las opciones 1 - 4")

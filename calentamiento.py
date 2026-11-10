@@ -1,34 +1,18 @@
-# Calentamiento
-lista_num = [5, 12, 8, 20, 3]
+# calentamineto
 
-for numero in lista_num:
-    if numero > 10:
-        print(f"Los numeros mayores a 10 son : {numero}")
-
-
-
-
-while True:
-    palabra = str(input("Dime una palabra : "))
-    try:
-        if palabra == "salir":
-            print("Adios")
-            break
-        else:
-            print (f"Escribiste {palabra}")
-    except ValueError:
-        print("Ocurrió un error, tienes que ingresar solo una palabra")
-        
-        
-        
-def calcular_iva_precio (precio, iva):
-    precio_iva = precio + (precio * iva)
-    
-    return precio_iva
-
-print (calcular_iva_precio(100, 0.16))
+productos = [
+    {"nombre": "Libreta", "precio": 35.5, "cantidad": 20},
+    {"nombre": "lapiz", "precio": 5.5, "cantidad": 10},
+    {"nombre": "sacapuntas", "precio": 5.0, "cantidad": 20},
+]
 
 
+total = 0.0
+for producto in productos:
+    print(
+        f"{producto['nombre']} : con un precio de ${producto['precio']:.2f} y un stock de {producto['cantidad']}"
+    )
+    total += producto["precio"] * producto["cantidad"]
 
 
-        
+print(f"el total de la compra es de ${total:.2f}")
