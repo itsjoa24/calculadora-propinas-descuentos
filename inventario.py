@@ -19,7 +19,7 @@ while True:
     try:
         for lista in listas:
             print(lista)
-    except:
+    except NameError:
         print("Error al mostrar el menu")
     try:
         opcion = int(input("Eliga la opcion que quiera realizar: "))
@@ -48,13 +48,18 @@ while True:
         elif opcion == 3:
             nombre = input("Producto a eliminar : ").strip().lower()
             encontrado = False
-            for producto in productos:
-                if nombre == producto["nombre"]:
-                    productos.remove(producto)
-                    encontrado = True
-                print(f"Se ha eliminado exitosamente {nombre} de la lista")
-        if not encontrado:
-            print(f"No se encontro {nombre} en la lista")
+            if nombre == "":
+                print("No se puede eliminar un producto vacio")
+            else:
+                for producto in productos:
+                    if nombre == producto["nombre"]:
+                        productos.remove(producto)
+                        encontrado = True
+                        break
+                if encontrado:
+                    print(f"Se ha eliminado exitosamente {nombre} de la lista")
+                else:
+                    print(f"No se encontro {nombre} en la lista")
         elif opcion == 4:
             # with open("inventario.txt", "w") as archivo:
             # for producto in productos:
