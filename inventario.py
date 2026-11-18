@@ -2,7 +2,13 @@
 
 print("--MENU--")
 
-listas = ["1. AGREGAR PRODUCTO", "2. VER PRODUCTO", "3. ELIMINAR PRODUCTO", "4. SALIR"]
+listas = [
+    "1. AGREGAR PRODUCTO",
+    "2. VER PRODUCTO",
+    "3. ELIMINAR PRODUCTO",
+    "4. SALIR",
+    "5.CAMBIAR CANTIDAD",
+]
 
 productos = []
 try:
@@ -71,7 +77,21 @@ while True:
                     )
             print("Que tenga un lindo dia")
             break
+        elif opcion == 5:
+            nombre = input("Producto a editar: ").strip().lower()
+            encontrado = False
+            for producto in productos:
+                if nombre == producto["nombre"]:
+                    actualizar_cantidad = int(input("Nueva cantidad : "))
+                    encontrado = True
+                    producto["cantidad"] = actualizar_cantidad
+                    break
+            if encontrado:
+                print("Se ah cambiado la cantidad")
+            else:
+                print("No existe ese producto")
+
         else:
             print("Opcion no valida")
     except ValueError:
-        print("ERROR : Solo se permite numero entero de las opciones 1 - 4")
+        print("ERROR : Solo se permite numero enteros")
