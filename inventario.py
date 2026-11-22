@@ -1,5 +1,7 @@
 # Inventario
 
+STOCK_MINIMO = 5
+
 print("--MENU--")
 
 listas = [
@@ -64,17 +66,23 @@ while True:
                 print("No hay productos añadidos")
             else:
                 total = 0.0
+                bajos = []
                 for producto in productos:
                     print(
                         f"{producto['nombre']} : unidades : {producto['cantidad']} a un precio de ${producto['precio']:.2f}"
                     )
                     total += producto["precio"] * producto["cantidad"]
+                    if producto["cantidad"] < STOCK_MINIMO:
+                        bajos.append(producto["nombre"])
+                if len(bajos) > 0:
+                    print(f"pocas unidades: {', '.join(bajos)}")
                 print(f"El total de la compra es de ${total:.2f}")
         elif opcion == 3:
             nombre = input("Producto a eliminar : ").strip().lower()
             encontrado = False
             if nombre == "":
                 print("No se puede eliminar un producto vacio")
+
             else:
                 for producto in productos:
                     if nombre == producto["nombre"]:
