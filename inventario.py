@@ -7,7 +7,7 @@ listas = [
     "2. VER PRODUCTO",
     "3. ELIMINAR PRODUCTO",
     "4. SALIR",
-    "5.CAMBIAR CANTIDAD",
+    "5. CAMBIAR CANTIDAD",
 ]
 
 productos = []
@@ -37,12 +37,28 @@ while True:
             if nombre == "":
                 print("No se puede agregar un producto vacio")
             else:
-                cantidad = int(input("Cantidad del producto: "))
+                cantidad = int(input("cantidad del producto: "))
                 precio = float(input("Precio del producto: "))
-                producto = {"nombre": nombre, "cantidad": cantidad, "precio": precio}
-                productos.append(producto)
-                print(f"{nombre} Agregado exitosamente")
+                if cantidad < 0 or precio < 0:
+                    print("No pueden ser negativos")
+                else:
+                    existente = None
+                    for producto in productos:
+                        if producto["nombre"] == nombre:
+                            existente = producto
+                            break
+                    if existente is None:
+                        producto = {
+                            "nombre": nombre,
+                            "precio": precio,
+                            "cantidad": cantidad,
+                        }
+                        productos.append(producto)
+                        print(f"se ha agregado correctamente {nombre}")
+                    else:
+                        existente["cantidad"] += cantidad
 
+                        print("se ha actualizado la cantidad")
         elif opcion == 2:
             if len(productos) == 0:
                 print("No hay productos añadidos")
@@ -80,17 +96,21 @@ while True:
         elif opcion == 5:
             nombre = input("Producto a editar: ").strip().lower()
             encontrado = False
-            for producto in productos:
-                if nombre == producto["nombre"]:
-                    actualizar_cantidad = int(input("Nueva cantidad : "))
-                    encontrado = True
-                    producto["cantidad"] = actualizar_cantidad
-                    break
-            if encontrado:
-                print("Se ah cambiado la cantidad")
+            if nombre == "":
+                print("escriba el nombre del producto")
             else:
-                print("No existe ese producto")
-
+                for producto in productos:
+                    if nombre == producto["nombre"]:
+                        encontrado = True
+                        nueva_cantidad = int(input("Nueva cantidad : "))
+                        if nueva_cantidad < 0:
+                            print("No puede ser una cantidad negativa")
+                        else:
+                            producto["cantidad"] = nueva_cantidad
+                            print("Se ha cambiado la cantidad")
+                        break
+                if not encontrado:
+                    print("No existe este producto")
         else:
             print("Opcion no valida")
     except ValueError:
