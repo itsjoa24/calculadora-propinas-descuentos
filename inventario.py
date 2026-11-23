@@ -59,8 +59,17 @@ while True:
                         print(f"se ha agregado correctamente {nombre}")
                     else:
                         existente["cantidad"] += cantidad
-
                         print("se ha actualizado la cantidad")
+                        respuesta = input(
+                            f"Precio actual ${existente['precio']:.2f}."
+                            f"Actualizar a ${precio:.2f}? (si/no): "
+                            ).strip().lower()
+                        if respuesta == "si":
+                            precio["precio"] += respuesta
+                            print("Se ha actualizado el precio")
+                        else:
+                            print("Se mantuvo el precio")
+                            
         elif opcion == 2:
             if len(productos) == 0:
                 print("No hay productos añadidos")
