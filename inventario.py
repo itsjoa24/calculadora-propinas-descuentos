@@ -40,8 +40,8 @@ while True:
                 print("No se puede agregar un producto vacio")
             else:
                 cantidad = int(input("cantidad del producto: "))
-                precio = float(input("Precio del producto: "))
-                if cantidad < 0 or precio < 0:
+
+                if cantidad < 0:
                     print("No pueden ser negativos")
                 else:
                     existente = None
@@ -50,26 +50,36 @@ while True:
                             existente = producto
                             break
                     if existente is None:
-                        producto = {
-                            "nombre": nombre,
-                            "precio": precio,
-                            "cantidad": cantidad,
-                        }
-                        productos.append(producto)
-                        print(f"se ha agregado correctamente {nombre}")
+                        precio = float(input("Precio del producto: "))
+                        if precio < 0:
+                            print("No puede ser negativo")
+                        else:
+                            producto = {
+                                "nombre": nombre,
+                                "precio": precio,
+                                "cantidad": cantidad,
+                            }
+                            productos.append(producto)
+                            print(f"se ha agregado correctamente {nombre}")
                     else:
                         existente["cantidad"] += cantidad
                         print("se ha actualizado la cantidad")
-                        respuesta = input(
-                            f"Precio actual ${existente['precio']:.2f}."
-                            f"Actualizar a ${precio:.2f}? (si/no): "
-                            ).strip().lower()
-                        if respuesta == "si":
-                            precio["precio"] += respuesta
-                            print("Se ha actualizado el precio")
-                        else:
-                            print("Se mantuvo el precio")
-                            
+                        respuesta = (
+                            input(
+                                f"Precio actual ${existente['precio']:.2f} ¿Quieres actualizar el precio? (si/no):  "
+                            )
+                            .strip()
+                            .lower()
+                        )
+                        if respuesta == "":
+                            print ("No se coloco un precio, vuelva a intentarlo")
+                            if respuesta == "si":
+                                nuevo_precio = float(input("Coloque el nuevo precio del producto: "))
+                                existente["precio"] = precio
+                                print("Se ha actualizado el precio")
+                            else:
+                                print("Se mantuvo el precio")
+
         elif opcion == 2:
             if len(productos) == 0:
                 print("No hay productos añadidos")

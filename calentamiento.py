@@ -22,7 +22,7 @@ def buscar_producto(productos, nombre):
         if nombre == producto["nombre"]:
             return producto
 
-    return None
+        return None
 
 
 inventario = [
@@ -98,9 +98,4 @@ inventario = [
 print(contar_agotados(inventario))
 print(contar_agotados([]))
 
-bicicleta = 12 * 88
-pago_unico = 780
-
-ahorro =  bicicleta - pago_unico
-print (ahorro)
 
