@@ -66,19 +66,22 @@ while True:
                         print("se ha actualizado la cantidad")
                         respuesta = (
                             input(
-                                f"Precio actual ${existente['precio']:.2f} ¿Quieres actualizar el precio? (si/no):  "
+                                f"Precio actual ${existente['precio']:.2f} ¿Quieres actualizar el precio? (si/no): "
                             )
                             .strip()
                             .lower()
                         )
-                        if respuesta == "":
-                            print ("No se coloco un precio, vuelva a intentarlo")
-                            if respuesta == "si":
-                                nuevo_precio = float(input("Coloque el nuevo precio del producto: "))
-                                existente["precio"] = precio
-                                print("Se ha actualizado el precio")
+                        if respuesta == "si":
+                            nuevo_precio = float(input("Nuevo precio del producto : "))
+                            if nuevo_precio < 0:
+                                print("No puede ser un precio negativo")
                             else:
-                                print("Se mantuvo el precio")
+                                existente["precio"] = nuevo_precio
+                                print(
+                                    f"Se ha actualizado el precio del producto {nombre}"
+                                )
+                        else:
+                            print("se mantuvo el precio")
 
         elif opcion == 2:
             if len(productos) == 0:
